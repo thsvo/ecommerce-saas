@@ -62,7 +62,7 @@ async function handler(req: ExtendedNextApiRequest, res: NextApiResponse): Promi
     if (user.role === 'ADMIN' && !req.subdomain) {
       res.status(401).json({ 
         error: 'Admin access denied: Please login through your store subdomain',
-        message: `Please visit ${user.subdomain}.localhost:3000 to access your admin panel`
+        message: `Please visit ${user.subdomain}.codeopx.com to access your admin panel`
       });
       return;
     }

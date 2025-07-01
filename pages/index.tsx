@@ -158,7 +158,7 @@ export default function Home() {
                 Welcome to Our <span className="text-blue-600">Multi-Tenant</span> Platform
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                This is the main platform site. To access a store, please visit a subdomain like shop1.localhost:3000
+                This is the main platform site. To access a store, please visit a subdomain like shop1.codeopx.com
               </p>
               
               <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
@@ -177,7 +177,7 @@ export default function Home() {
                   <div className="p-4 bg-purple-50 rounded-lg">
                     <div className="text-3xl mb-2">🚀</div>
                     <h3 className="font-semibold mb-2">3. Sell Online</h3>
-                    <p className="text-sm text-gray-600">Customers shop at subdomain.localhost:3000</p>
+                    <p className="text-sm text-gray-600">Customers shop at subdomain.codeopx.com</p>
                   </div>
                 </div>
               </div>
@@ -678,7 +678,7 @@ export default function Home() {
               <div className="text-center py-20">
                 <h2 className="text-4xl font-bold text-gray-900 mb-4">Welcome to Multi-Store Platform</h2>
                 <p className="text-gray-600 text-lg mb-8">Each admin has their own dedicated store with unique products.</p>
-                <p className="text-gray-500">Visit a subdomain (e.g., shop1.localhost:3000) to see admin-specific products.</p>
+                <p className="text-gray-500">Visit a subdomain (e.g., shop1.codeopx.com) to see admin-specific products.</p>
                 <div className="mt-8">
                   <Link href="/superadmin/login" className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-red-700 transition-all mr-4">
                     Superadmin Login →

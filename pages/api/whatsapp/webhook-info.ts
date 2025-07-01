@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const baseUrl = process.env.NEXTAUTH_URL || 
                    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
-                   'http://localhost:3000';
+                   'http://codeopx.com';
     
     const webhookUrl = `${baseUrl}/api/webhooks/whatsapp`;
     const verifyToken = process.env.WHATSAPP_WEBHOOK_VERIFY_TOKEN || 'not_set';

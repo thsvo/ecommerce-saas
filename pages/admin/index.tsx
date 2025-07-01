@@ -70,7 +70,7 @@ const AdminDashboard: React.FC = () => {
             </div>
             <h2 className="text-xl font-semibold text-gray-900 mb-2">Access Denied</h2>
             <p className="text-gray-600 mb-4">
-              This admin panel is only accessible on admin subdomains (e.g., shop1.localhost:3000)
+              This admin panel is only accessible on admin subdomains (e.g., shop1.codeopx.com)
             </p>
             <p className="text-sm text-gray-500">
               Current URL: {window.location.host}
@@ -111,7 +111,7 @@ const AdminDashboard: React.FC = () => {
                 All content is filtered to show only your products and orders.
               </p>
               <div className="mt-3">
-                <a href={`http://${user.subdomain}.localhost:3000`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
+                <a href={`http://${user.subdomain}.codeopx.com`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
                   <span>View your public storefront</span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />

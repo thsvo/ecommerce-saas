@@ -172,7 +172,7 @@ const SuperAdminDashboard = () => {
               placeholder="e.g., shop1"
               required
             />
-            <p className="text-xs text-gray-500 mt-1">This will create shop at: {newAdmin.subdomain}.localhost:3000</p>
+            <p className="text-xs text-gray-500 mt-1">This will create shop at: {newAdmin.subdomain}.codeopx.com</p>
           </div>
           <div>
             <Label htmlFor="password">Password</Label>
@@ -282,7 +282,7 @@ const SuperAdminDashboard = () => {
                               placeholder="e.g., shop1"
                               required
                             />
-                            <p className="text-xs text-gray-500 mt-1">Store URL: {editingAdmin.subdomain}.localhost:3000</p>
+                            <p className="text-xs text-gray-500 mt-1">Store URL: {editingAdmin.subdomain}.codeopx.com</p>
                           </div>
                           <div>
                             <Label htmlFor="edit-password">

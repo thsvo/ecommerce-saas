@@ -19,7 +19,7 @@ const SubdomainSettings: React.FC = () => {
   }, [user]);
 
   const handleCopyUrl = () => {
-    const url = `http://${currentSubdomain}.localhost:3000`;
+    const url = `https://${currentSubdomain}.codeopx.com`;
     navigator.clipboard.writeText(url);
     setSuccess(true);
     setTimeout(() => setSuccess(false), 3000);
@@ -27,7 +27,7 @@ const SubdomainSettings: React.FC = () => {
 
   return (
     <AdminLayout title="Subdomain Settings">
-      <div className="space-y-6"/>
+      <div className="space-y-6">
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Your Store Subdomain</h2>
           
@@ -36,6 +36,7 @@ const SubdomainSettings: React.FC = () => {
               <div className="mr-3 bg-blue-100 p-2 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </path>
               </svg>
             </div>
             <p className="text-sm text-gray-600">
@@ -72,7 +73,7 @@ const SubdomainSettings: React.FC = () => {
               </button>
             </div>
             <p className="mt-2 text-sm text-gray-500">
-              Your store is accessible at: <span className="font-medium">http://{currentSubdomain}.localhost:3000</span> (for development)
+              Your store is accessible at: <span className="font-medium">http://{currentSubdomain}.codeopx.com</span> (for development)
             </p>
             <p className="text-sm text-gray-500">
               In production, it would be: <span className="font-medium">http://{currentSubdomain}.yourdomain.com</span>
@@ -83,7 +84,7 @@ const SubdomainSettings: React.FC = () => {
             <h3 className="text-lg font-medium text-gray-900 mb-4">Access Your Store</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <a 
-                href={`http://${currentSubdomain}.localhost:3000`}
+                href={`http://${currentSubdomain}.codeopx.com`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center p-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
@@ -98,7 +99,7 @@ const SubdomainSettings: React.FC = () => {
               </a>
               
               <a 
-                href={`http://${currentSubdomain}.localhost:3000/admin`}
+                href={`http://${currentSubdomain}.codeopx.com/admin`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center p-4 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors"
