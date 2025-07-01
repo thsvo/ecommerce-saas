@@ -1,0 +1,52 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Build output
+dist/
+build/
+.out/
+.next/
+coverage/
+temp/
+tmp/
+.cache/
+
+# Environment files
+.env
+.env.*.local
+.env.local
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Misc
+*.tgz
+*.gz
+*.zip
+
+# Optional: Ignore test snapshots
+__snapshots__/
+
+# Optional: Ignore local database
+*.sqlite
+*.db
+
+# Optional: Ignore storybook static build
+storybook-static/
+.vercel

@@ -1,0 +1,374 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  phone     String?
+  avatar    String?
+  dateOfBirth DateTime?
+  subdomain  String?  @unique
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  orders    Order[]
+  reviews   Review[]
+  cart      CartItem[]
+  addresses Address[]
+  smsCampaigns SMSCampaign[]
+  smsCampaignLogs SMSCampaignLog[]
+  whatsappCampaigns WhatsAppCampaign[]
+  whatsappCampaignLogs WhatsAppCampaignLog[]
+  categories Category[] @relation("CategoryAdmin")
+  products  Product[] @relation("ProductAdmin")
+  customDomains CustomDomain[]
+
+  @@map("users")
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  image       String?
+  createdBy   String?   // Admin who created this category
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  products Product[]
+  admin   User? @relation("CategoryAdmin", fields: [createdBy], references: [id], onDelete: SetNull)
+
+  @@unique([name, createdBy]) // Allow same category name for different admins
+  @@map("categories")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  image       String
+  stock       Int      @default(0)
+  categoryId  String
+  createdBy   String?  // Admin who created this product
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  category    Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  orderItems  OrderItem[]
+  reviews     Review[]
+  cartItems   CartItem[]
+  images      ProductImage[]
+  admin       User?        @relation("ProductAdmin", fields: [createdBy], references: [id], onDelete: SetNull)
+
+  @@map("products")
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  userId      String?
+  total       Float
+  status      OrderStatus @default(PENDING)
+  shippingAddress String
+  paymentMethod   String
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentTransactionId String?
+  paymentValidationId  String?
+  paidAt      DateTime?
+  customerName    String?
+  customerPhone   String?
+  customerEmail   String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  user        User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderItems  OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+
+  // Relations
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("order_items")
+}
+
+model CartItem {
+  id        String @id @default(cuid())
+  userId    String
+  productId String
+  quantity  Int
+
+  // Relations
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@map("cart_items")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  rating    Int      @default(1)
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@map("reviews")
+}
+
+model Address {
+  id        String @id @default(cuid())
+  userId    String
+  street    String
+  city      String
+  state     String
+  zipCode   String
+  country   String
+  isDefault Boolean @default(false)
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("addresses")
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  url       String
+  productId String
+  isMain    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_images")
+}
+
+enum Role {
+  USER
+  ADMIN
+  SUPERADMIN
+}
+
+model SuperAdmin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("super_admins")
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  CANCELLED
+  REFUNDED
+}
+
+model SMSCampaign {
+  id            String           @id @default(cuid())
+  name          String
+  message       String
+  recipients    String[]         // Array of phone numbers
+  status        SMSStatus        @default(DRAFT)
+  scheduledAt   DateTime?
+  sentAt        DateTime?
+  totalCount    Int              @default(0)
+  deliveredCount Int             @default(0)
+  failedCount   Int              @default(0)
+  apiProvider   String?          // SMS_BANGLADESH, etc.
+  apiResponse   Json?            // Store API response
+  failedNumbers String[]         @default([])
+  createdBy     String?          // Made optional for public access
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  // Relations - made optional
+  user User? @relation(fields: [createdBy], references: [id])
+  logs SMSCampaignLog[]
+
+  @@map("sms_campaigns")
+}
+
+model SMSCampaignLog {
+  id         String   @id @default(cuid())
+  campaignId String
+  action     String   // CREATED, SENT, FAILED, etc.
+  details    Json?    // Additional details
+  userId     String?  // Made optional for public access
+  createdAt  DateTime @default(now())
+
+  // Relations
+  campaign SMSCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  user     User?       @relation(fields: [userId], references: [id])
+
+  @@map("sms_campaign_logs")
+}
+
+enum SMSStatus {
+  DRAFT
+  SCHEDULED
+  SENT
+  FAILED
+}
+
+model WhatsAppCampaign {
+  id              String              @id @default(cuid())
+  name            String
+  messageType     WhatsAppMessageType @default(TEXT)
+  textMessage     String?             // For text messages
+  templateName    String?             // For template messages
+  templateParams  Json?               // Template parameters
+  mediaUrl        String?             // For media messages
+  mediaType       MediaType?          // IMAGE, VIDEO, AUDIO, DOCUMENT
+  recipients      String[]            // Array of phone numbers with country code
+  status          WhatsAppStatus      @default(DRAFT)
+  scheduledAt     DateTime?
+  sentAt          DateTime?
+  totalCount      Int                 @default(0)
+  deliveredCount  Int                 @default(0)
+  readCount       Int                 @default(0)
+  failedCount     Int                 @default(0)
+  apiResponse     Json?               // Store API response
+  failedNumbers   String[]            @default([])
+  createdBy       String?             // Made optional for public access
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  // Relations
+  user User? @relation(fields: [createdBy], references: [id])
+  logs WhatsAppCampaignLog[]
+
+  @@map("whatsapp_campaigns")
+}
+
+model WhatsAppCampaignLog {
+  id         String   @id @default(cuid())
+  campaignId String
+  action     String   // CREATED, SENT, DELIVERED, READ, FAILED, etc.
+  details    Json?    // Additional details
+  phoneNumber String? // Specific phone number for delivery tracking
+  userId     String?  // Made optional for public access
+  createdAt  DateTime @default(now())
+
+  // Relations
+  campaign WhatsAppCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  user     User?            @relation(fields: [userId], references: [id])
+
+  @@map("whatsapp_campaign_logs")
+}
+
+model WhatsAppTemplate {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  displayName String
+  category    String   // MARKETING, UTILITY, AUTHENTICATION
+  language    String   @default("en")
+  status      String   // APPROVED, PENDING, REJECTED
+  components  Json     // Template components structure
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("whatsapp_templates")
+}
+
+enum WhatsAppMessageType {
+  TEXT
+  TEMPLATE
+  MEDIA
+}
+
+enum WhatsAppStatus {
+  DRAFT
+  SCHEDULED
+  SENT
+  FAILED
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  AUDIO
+  DOCUMENT
+}
+
+model CustomDomain {
+  id              String              @id @default(cuid())
+  domain          String              @unique
+  userId          String              // Admin who owns this domain
+  status          DomainStatus        @default(PENDING)
+  verificationMethod DomainVerificationMethod @default(DNS_TXT)
+  verificationToken String            // Token for DNS verification
+  dnsRecords      Json?               // Required DNS records
+  lastVerified    DateTime?
+  verifiedAt      DateTime?
+  ssl             Boolean             @default(false)
+  isActive        Boolean             @default(false)
+  errorMessage    String?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  // Relations
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("custom_domains")
+}
+
+enum DomainStatus {
+  PENDING
+  VERIFYING
+  VERIFIED
+  FAILED
+  ACTIVE
+  INACTIVE
+}
+
+enum DomainVerificationMethod {
+  DNS_TXT
+  DNS_CNAME
+  FILE_UPLOAD
+}
