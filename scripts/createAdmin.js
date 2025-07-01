@@ -82,8 +82,8 @@ async function createAdmin() {
     console.log('Password:', password);
     console.log('Role:', admin.role);
     console.log('Subdomain:', admin.subdomain);
-    console.log(`Access URL: http://${admin.subdomain}.codeopx.com (for local development)`);
-    console.log(`Production URL would be: http://${admin.subdomain}.yourdomain.com`);
+    console.log(`Access URL: https://${admin.subdomain}.codeopx.com (for local development)`);
+    console.log(`Production URL would be: https://${admin.subdomain}.yourdomain.com`);
 
   } catch (error) {
     console.error('Error creating admin:', error);

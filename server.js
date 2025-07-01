@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
 
 nextApp.prepare().then(() => {
   app.listen(PORT, () => {
-    console.log(`> Server running on http://localhost:${PORT}`);
+    console.log(`> Server running on https://localhost:${PORT}`);
   });
 }).catch(err => {
   console.error('Error starting server:', err);

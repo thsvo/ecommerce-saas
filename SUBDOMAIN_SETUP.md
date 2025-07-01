@@ -90,13 +90,13 @@ This will create an admin user with a unique subdomain and display the URL you c
 Once you have created an admin user with a subdomain, you can access their version of the site by visiting:
 
 ```
-http://[subdomain].codeopx.com
+https://[subdomain].codeopx.com
 ```
 
 For example, if the generated subdomain is "adminuser", you would visit:
 
 ```
-http://adminuser.codeopx.com
+https://adminuser.codeopx.com
 ```
 
 ### Testing Admin Isolation
