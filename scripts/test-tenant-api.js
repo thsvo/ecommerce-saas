@@ -8,14 +8,14 @@
 const fetch = require('node-fetch');
 
 // Configuration
-const TENANT_SUBDOMAIN = 'tariqulislam'; // Replace with your tenant subdomain
+const TENANT_SUBDOMAIN = 'api'; // Replace with your tenant subdomain
 const BASE_URL = `https://${TENANT_SUBDOMAIN}.codeopx.com`;
 const LOGIN_ENDPOINT = '/api/server/auth/login';
 
 // Test credentials - replace with valid credentials for your tenant
 const TEST_CREDENTIALS = {
-  email: 'admin@example.com', // Replace with a valid email
-  password: 'password123'     // Replace with a valid password
+  email: 'admin@ecommerce.com', // Replace with a valid email
+  password: '123456'     // Replace with a valid password
 };
 
 async function testTenantApiRouting() {
