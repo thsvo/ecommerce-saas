@@ -36,7 +36,7 @@ async function handler(req: ExtendedNextApiRequest, res: NextApiResponse): Promi
       return;
     }
 
-    // Debug logging
+    // Enhanced debug logging
     console.log('=== LOGIN DEBUG ===');
     console.log('- User email:', user.email);
     console.log('- User role:', user.role);
@@ -45,6 +45,8 @@ async function handler(req: ExtendedNextApiRequest, res: NextApiResponse): Promi
     console.log('- Request host:', req.headers.host);
     console.log('- Request x-subdomain header:', req.headers['x-subdomain']);
     console.log('- Request adminId:', req.adminId);
+    console.log('- Request path:', req.url);
+    console.log('- All headers:', JSON.stringify(req.headers, null, 2));
     console.log('===================')
 
     // For admin users, check if they belong to the current subdomain

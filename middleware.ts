@@ -18,6 +18,13 @@ export async function middleware(request: NextRequest) {
     
     if (subdomain && subdomain !== 'www') {
       requestHeaders.set('x-subdomain', subdomain);
+      
+      // Debug logging for API requests from subdomains
+      console.log('API Request from subdomain:', {
+        subdomain,
+        path: request.nextUrl.pathname,
+        host
+      });
     }
     
     return NextResponse.next({
