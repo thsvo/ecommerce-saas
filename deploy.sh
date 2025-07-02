@@ -39,6 +39,12 @@ fi
 # Save PM2 configuration
 pm2 save
 
+echo "🔄 Restarting server.js with PM2..."
+pm2 restart server.js
+
+echo "🔄 Restarting Nginx..."
+sudo systemctl restart nginx
+
 echo "✅ Deployment completed successfully!"
 echo "🌐 Your application should now be running at:"
 echo "   - Frontend: https://codeopx.com"
