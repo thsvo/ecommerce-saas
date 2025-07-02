@@ -40,8 +40,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       data: { status: 'VERIFYING' }
     });
 
-    const targetDomain = 'codeopx.com';
-    
+   const targetDomain = process.env.NEXT_PUBLIC_DOMAIN || 'yourdomain.com';
+       
     // Perform automatic verification with retries
     const verificationResult = await autoVerifyDomain(
       domain.domain,
