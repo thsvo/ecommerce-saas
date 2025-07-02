@@ -11,7 +11,7 @@ const nextConfig = {
     return [
       {
         source: '/api/server/:path*',
-        destination: 'https://codeopx.com/api/:path*',
+        destination: '/api/:path*',
       },
     ];
   },
