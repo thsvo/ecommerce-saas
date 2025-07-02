@@ -158,7 +158,7 @@ export default function Home() {
                 Welcome to Our <span className="text-blue-600">Multi-Tenant</span> Platform
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                This is the main platform site. To access a store, please visit a subdomain like shop1.codeopx.com
+                This is the main platform site. To access a store, please visit a subdomain like yourshop.codeopx.com
               </p>
               
               <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
