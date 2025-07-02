@@ -17,6 +17,7 @@ model User {
   avatar    String?
   dateOfBirth DateTime?
   subdomain  String?  @unique
+  storeName  String?
   role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
