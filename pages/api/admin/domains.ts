@@ -84,7 +84,7 @@ async function addDomain(req: NextApiRequest, res: NextApiResponse) {
 
     // Generate verification token and DNS records
     const verificationToken = generateVerificationToken();
-    const targetDomain = process.env.NEXT_PUBLIC_DOMAIN || 'yourdomain.com';
+    const targetDomain =  'codeopx.com';
     const dnsRecords = generateDNSRecords(domain, verificationToken, targetDomain);
 
     // Create domain record
@@ -139,7 +139,7 @@ async function updateDomain(req: NextApiRequest, res: NextApiResponse) {
         data: { status: 'VERIFYING' }
       });
 
-      const targetDomain = process.env.NEXT_PUBLIC_DOMAIN || 'yourdomain.com';
+      const targetDomain = process.env.NEXT_PUBLIC_DOMAIN || 'codeopx.com';
       
       // Perform verification
       const verificationResult = await autoVerifyDomain(

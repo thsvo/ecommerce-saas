@@ -61,7 +61,7 @@ export function useCurrentSubdomain() {
       return customDomain;
     }
     if (isAdminSubdomain && subdomain) {
-      return `${subdomain}.yourdomain.com`;
+      return `${subdomain}.codeopx.com`;
     }
     return storeName || 'Store';
   };

@@ -75,7 +75,7 @@ const SubdomainSettings: React.FC = () => {
               Your store is accessible at: <span className="font-medium">https://{currentSubdomain}.codeopx.com</span> (for development)
             </p>
             <p className="text-sm text-gray-500">
-              In production, it would be: <span className="font-medium">https://{currentSubdomain}.yourdomain.com</span>
+              In production, it would be: <span className="font-medium">https://{currentSubdomain}.codeopx.com</span>
             </p>
           </div>
           
