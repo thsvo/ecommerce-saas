@@ -17,8 +17,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: 48.217.68.0
-          username: haomao
+          username: root
           password: Torikul131@Torikul131@
           script: |
-            cd /var/www/ecommerce-saas
-            ./deploy.sh
+            sudo bash -c 'cd /var/www/ecommerce-saas && ./deploy.sh'
